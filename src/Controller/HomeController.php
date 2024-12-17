@@ -16,7 +16,6 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
         ]);
-        
     }
 
     #[Route('/compositions', name: 'app_compositions')]
@@ -25,17 +24,15 @@ class HomeController extends AbstractController
         // Récupérer les compositions depuis la base de données
         $compositions = $em->getRepository(Composition::class)->findAll();
 
-        return $this->render('home/compositions.html.twig', [
+        // Renvoyer la vue avec les compositions récupérées
+        return $this->render('compositions/compositions.html.twig', [
             'compositions' => $compositions,
         ]);
     }
 
-
     #[Route('/contact', name: 'app_contact')]
     public function contact(): Response
     {
-        return $this->render('home/contact.html.twig');
+        return $this->render('contact/contact.html.twig');
     }
-
-    
 }

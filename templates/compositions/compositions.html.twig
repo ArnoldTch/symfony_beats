@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Compositions{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="content">
+            <h1>Compositions</h1>
+
+            <div class="compositions-list">
+                {% for composition in compositions %}
+                    <button class="play-btn" 
+                            data-audio="{{ composition.file is not null ? asset(composition.file) : '' }}" 
+                            data-image="{{ composition.image is not null ? asset(composition.image) : '' }}">
+                        {{ composition.title }}
+                    </button>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div id="background-image" class="background-image"></div>
+
+    <audio id="audio-player" controls style="display: none;">
+        <source id="audio-source" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        const playButtons = document.querySelectorAll('.play-btn');
+        const audioPlayer = document.getElementById('audio-player');
+        const audioSource = document.getElementById('audio-source');
+        const backgroundImage = document.getElementById('background-image');
+
+        playButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const audioFile = button.getAttribute('data-audio');
+                const imageFile = button.getAttribute('data-image');
+
+                // Mettre à jour la source de l'audio
+                audioSource.src = audioFile;
+
+                // Recharger l'audio avec la nouvelle source
+                audioPlayer.load();
+
+                // Lancer la lecture de l'audio
+                audioPlayer.play();
+
+                // Afficher le lecteur audio
+                audioPlayer.style.display = 'block'; 
+
+                // Mettre à jour l'image de fond
+                backgroundImage.style.backgroundImage = `url(${imageFile})`;
+            });
+        });
+    </script>
+{% endblock %}

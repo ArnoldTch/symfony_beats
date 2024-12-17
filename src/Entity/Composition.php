@@ -13,14 +13,20 @@ class Composition
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private ?string $title = null;
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $file;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private ?string $file = null;
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $title;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private ?string $image = null;
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $image;
 
     public function getId(): ?int
     {

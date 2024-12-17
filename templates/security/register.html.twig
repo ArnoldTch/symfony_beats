@@ -1,0 +1,50 @@
+{# templates/security/register.html.twig #}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Register</h1>
+
+        {# Affichage des erreurs de formulaire #}
+        {% if app.flashes('error') %}
+            <div class="alert alert-danger">
+                {% for message in app.flashes('error') %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form method="post">
+            {{ form_start(registrationForm) }}
+            
+            <div>
+                {{ form_row(registrationForm.email) }}
+            </div>
+            
+            <div>
+                {{ form_row(registrationForm.plainPassword) }}
+            </div>
+            
+            <div>
+                {{ form_row(registrationForm.firstName) }}
+            </div>
+            
+            <div>
+                {{ form_row(registrationForm.lastName) }}
+            </div>
+
+            <button type="submit">Register</button>
+
+            {{ form_end(registrationForm) }}
+        </form>
+
+        <p>Already have an account? <a href="{{ path('app_login') }}">Login here</a></p>
+    </div>
+</body>
+</html>
